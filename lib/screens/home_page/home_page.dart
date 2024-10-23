@@ -102,7 +102,6 @@ class _HomePageState extends State<HomePage> {
             TextButton(
               child: Text('Add'),
               onPressed: () {
-                _bloc.updateDueDate(null);
 
                 if (taskController.text.isNotEmpty) {
                   // Now you can access the due date safely
@@ -114,6 +113,7 @@ class _HomePageState extends State<HomePage> {
                     descriptionController.text,
                     dueDate,
                   );
+                  _bloc.updateDueDate(null);
                   Navigator.of(context).pop();
                 }
               },
