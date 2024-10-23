@@ -1,16 +1,15 @@
-# todo_app
+## How to Run the App
 
-A new Flutter project.
+### 1. Install Prerequisites:
+- [Flutter SDK](https://flutter.dev/docs/get-started/install)
+- Android Studio/Xcode (for emulators)
+- Git
 
-## Getting Started
+### 2. Clone the Repository:
+Open a terminal and run the following command to clone the repository:
+git clone https://github.com/rajChokshiDeveloper710/todo-list-demo.git
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 3.Navigate to the Project Directory:
+cd todo-list-demo
+flutter pub get
+flutter run
