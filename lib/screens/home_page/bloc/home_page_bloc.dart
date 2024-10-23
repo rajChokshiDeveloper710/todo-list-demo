@@ -4,11 +4,21 @@ import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePageBloc {
-  // BehaviorSubjects to handle task streams
   final _tasksSubject = BehaviorSubject<List<Map<String, dynamic>>>.seeded([]);
   final _searchSubject = BehaviorSubject<String>.seeded("");
   final _loadingSubject = BehaviorSubject<bool>.seeded(false);
+  final _dueDateSubject = BehaviorSubject<DateTime?>.seeded(null);
 
+  // Stream for the selected due date
+  Stream<DateTime?> get dueDateStream => _dueDateSubject.stream;
+
+  // Get the current value of due date
+  DateTime? get currentDueDate => _dueDateSubject.valueOrNull;
+
+  // Update due date
+  void updateDueDate(DateTime? date) {
+    _dueDateSubject.add(date);
+  }
   Stream<List<Map<String, dynamic>>> get tasksStream => Rx.combineLatest2(
     _tasksSubject.stream,
     _searchSubject.stream,
@@ -46,20 +56,22 @@ class HomePageBloc {
     await prefs.setString('tasks', tasksString);
   }
 
-  void addTask(String title, String description) {
+  void addTask(String title, String description, String? dueDate) {
     _tasks.add({
       'title': title,
       'description': description,
       'completed': false,
+      'dueDate': dueDate, // Store the due date
       'timestamp': DateTime.now().toString(),
     });
     _tasksSubject.add(_tasks);
     _saveTasks();
   }
 
-  void editTask(int index, String newTitle, String newDescription) {
+  void editTask(int index, String newTitle, String newDescription, String? newDueDate) {
     _tasks[index]['title'] = newTitle;
     _tasks[index]['description'] = newDescription;
+    _tasks[index]['dueDate'] = newDueDate; // Update due date
     _tasksSubject.add(_tasks);
     _saveTasks();
   }
@@ -76,12 +88,10 @@ class HomePageBloc {
     _saveTasks();
   }
 
-  // Search Functionality
   void searchTask(String query) {
     _searchSubject.add(query);
   }
 
-  // Dispose method to close the streams
   void dispose() {
     _tasksSubject.close();
     _searchSubject.close();
