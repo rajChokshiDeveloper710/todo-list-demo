@@ -11,5 +11,9 @@ git clone https://github.com/rajChokshiDeveloper710/todo-list-demo.git
 
 ### 3.Navigate to the Project Directory:
 cd todo-list-demo
-flutter pub get
+
+### 4. Install Dependencies:
+flutter pub get 
+
+### 5. Run the App:
 flutter run
